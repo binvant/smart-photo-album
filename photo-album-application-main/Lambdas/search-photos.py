@@ -1,6 +1,7 @@
 import json
 import boto3
 import requests
+from requests_aws4auth import AWS4Auth
 import os
 
 def lambda_handler(event, context):
@@ -11,11 +12,10 @@ def lambda_handler(event, context):
     print(query)
     lex = boto3.client('lex-runtime')
     lex_resp = lex.post_text(
-        botName = 'photo_album',
-        botAlias = 'test',
+        botName = 'photoBot',
+        botAlias = 'photobot',
         userId = 'user01',
         inputText = query)
-    
     print(lex_resp)
     slots = lex_resp['slots']
     print(slots)
@@ -23,12 +23,16 @@ def lambda_handler(event, context):
     print(keywords)
     
     #Getting the JSON object into ElasticSearch
-    endpoint = 'https://search-photos-cmexzfqg2n6qer6hzzmv3dqiya.us-east-1.es.amazonaws.com'
-    awsauth = (os.environ['es_user'], os.environ['es_pass'])
+    region = "us-east-1"
+    service = "es"
+    endpoint = 'https://search-photos-xhuxv4qwyxacqlbu7v3fpxkqky.us-east-1.es.amazonaws.com'
+    credentials = boto3.Session(aws_access_key_id="",
+                          aws_secret_access_key="", 
+                          region_name="us-east-1").get_credentials()
     
     #OpenSearch domain endpoint with https://
     index = 'photos'
-    type = 'Photos'
+    type = 'photos'
     url = endpoint + '/' + index + '/' + type + '/_search'
     print("URL --- {}".format(url))
     
@@ -46,7 +50,7 @@ def lambda_handler(event, context):
                 }
             }
         }
-        
+        awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
         req = requests.get(url, auth=awsauth, headers=headers, data=json.dumps(query))
         data = json.loads(req.content)
         
@@ -54,7 +58,7 @@ def lambda_handler(event, context):
         
         for idx in data['hits']['hits']:
             key = idx['_source']['objectKey']
-            url_res = "https://bass2.s3.amazonaws.com/"+key
+            url_res = "https://bsb9397-b1.s3.amazonaws.com/"+key
             if(url_res not in result):
                 result.append(url_res)
         print("-----RESULT-----",result)
@@ -65,6 +69,6 @@ def lambda_handler(event, context):
         'headers':{
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS'
         }
     }

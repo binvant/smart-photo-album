@@ -2,6 +2,7 @@ import json
 import boto3
 import os
 import requests
+from requests_aws4auth import AWS4Auth
 from datetime import *
 
 def lambda_handler(event, context):
@@ -62,26 +63,30 @@ def lambda_handler(event, context):
         print("JSON OBJECT --- {}".format(obj))
         
         #Posting the JSON object into ElasticSearch, _id is automatically increased
-        endpoint = 'https://search-photos-cmexzfqg2n6qer6hzzmv3dqiya.us-east-1.es.amazonaws.com'
-        awsauth = (os.environ['es_user'], os.environ['es_pass'])
+        region = "us-east-1"
+        service = "es"
+        endpoint = 'https://search-photos-xhuxv4qwyxacqlbu7v3fpxkqky.us-east-1.es.amazonaws.com'
+        credentials = boto3.Session(aws_access_key_id="",
+                          aws_secret_access_key="", 
+                          region_name="us-east-1").get_credentials()
+        awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
         
         #OpenSearch domain endpoint with https://
         index = 'photos'
-        type = 'Photos'
+        type = 'photos'
         url = endpoint + '/' + index + '/' + type
         print("URL --- {}".format(url))
         
         obj = json.dumps(obj).encode("utf-8")
         req = requests.post(url, auth=awsauth, headers=headers, data=obj)
-        
+        print(req.text)
         print("Success: ", req)
         return {
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Headers': '*',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT'
+                'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS'
             },
             'body': json.dumps("Image labels have been detected successfully!")
         }
-    #Testing for pipeline
