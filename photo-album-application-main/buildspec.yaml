@@ -14,19 +14,19 @@ phases:
       - zip -r9 ../deployment_package_2.zip .
       - cd ..
       - cd Lambdas
-      - mv search-photos.py ../lambda_function.py
+      - mv search_photos.py ../lambda_function.py
       - cd ..
       - zip -r deployment_package_1.zip lambda_function.py
-      - mv lambda_function.py Lambdas/search-photos.py
+      - mv lambda_function.py Lambdas/search_photos.py
       - cd Lambdas
-      - mv index-photos.py ../lambda_function.py
+      - mv LF1_2.py ../lambda_function.py
       - cd ..
       - zip -r deployment_package_2.zip lambda_function.py
-      - mv lambda_function.py Lambdas/index-photos.py
+      - mv lambda_function.py Lambdas/LF1_2.py
 
   post_build:
     commands:
       - echo "Updating lambda Functions..."
-      - aws lambda update-function-code --function-name search-photos --zip-file fileb://deployment_package_1.zip
-      - aws lambda update-function-code --function-name index-photos --zip-file fileb://deployment_package_2.zip
+      - aws lambda update-function-code --function-name search_photos --zip-file fileb://deployment_package_1.zip
+      - aws lambda update-function-code --function-name LF1_2 --zip-file fileb://deployment_package_2.zip
       - echo "DONE!!"

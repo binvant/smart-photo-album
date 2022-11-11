@@ -4,4 +4,4 @@ Resources:
   S3Bucket: 
     Type: AWS::S3::Bucket
     Properties:
-      CodeUri: ./frontend
+      CodeUri: ./Frontend
