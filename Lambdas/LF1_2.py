@@ -20,7 +20,7 @@ def lambda_handler(event, context):
         size = record['s3']['object']['size']
         metadata = s3.head_object(Bucket=bucket, Key=key)
         
-        print("-----meta-----", metadata)
+        print("-----metadata-----", metadata)
         
         #print("-----KEY-----", key)
         #Detecting the label of the current image

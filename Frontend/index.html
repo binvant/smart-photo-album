@@ -20,33 +20,30 @@
 </head>
 
 <body >
-    <h2 style="text-align: center;font-size: 60px;font-style: bold;margin-top:30px;">SMART PHOTO ALBUM</h2>
+    <h2 style="text-align: center;font-size: 60px;font-style: bold;margin-top:30px;color:whitesmoke">SMART PHOTO ALBUM</h2>
     <div class="container">
         <div class="app">
             <div class="heading"></div>
             <div>
-                <h2 style="text-align: center;font-size: 40px;font-style: bold;">SEARCH</h2>
+                <h2 style="text-align: center;font-size: 40px;font-style: bold;color:whitesmoke">SEARCH</h2>
             </div>
             <div class="input-group" style="margin-top:30px">
-                <input id="note-textarea"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum. type="text" class="form-control" placeholder="Enter search keyword" name="search">
+                <input id="note-textarea" type="text" class="form-control" placeholder="Enter search keyword" name="search">
+                <button id="start-record-btn" class="btn btn-primary" type="line1" style="background-color: green; margin-right: 10px; height: 60px; width: 75px;"><i class="fa fa-microphone"></i></button>
+                </input> 
                 <div class="input-group-btn">
-                    <button class="btn btn-default" type="line1" onclick="searchPhoto()">  <i class="fa fa-search"></i></button>
-                    <button id="start-record-btn" class="btn btn-default" type="line1"><i class="fa fa-microphone"></i></button>
+                    <button class="btn btn-primary" type="line1" onclick="searchPhoto()" style="background-color: green;">  <i class="fa fa-search"></i></button>
                 </div>
             </div>
-            <h2 style="text-align: center;font-size: 40px;font-style: bold;margin-top:30px;">--------------------</h2>
-            <h2 style="text-align: center;font-size: 40px;font-style: bold;margin-top:30px;">UPLOAD</h2>
+            <br>
+            <br>
+            <h2 style="text-align: center;font-size: 40px;font-style: bold;margin-top:30px;color:whitesmoke">UPLOAD</h2>
             <div class="center" style="margin-top:30px" >
-                <input type="file" class="form-control upload" name="search" id="file_path">
+                <input type="file" class="form-control upload" name="search" id="file_path" style="color:whitesmoke">
             </div>
             <div class="input-group" style="margin-top:30px;">
-                    <input type="text" id='custom_labels' name="custom_labels" placeholder="OPTIONAL: Custom Labels (comma separated)">
-                    <button class="btn btn-default" type="line2" onclick="uploadPhoto()"><i class="fa fa-upload"></i></button>
+                    <input type="text" id='custom_labels' name="custom_labels" placeholder="OPTIONAL: Custom Labels (comma separated)" style="color:whitesmoke; width:550px">
+                    <button class="btn btn-primary" onclick="uploadPhoto()" style="height: 60px; width: 100px; background-color: green;"><i class="fa fa-upload"></i></button>
             </div>
         </div>
         <div>
