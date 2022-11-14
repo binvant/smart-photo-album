@@ -1,7 +1,7 @@
 # photo-album-application
 
 A Voice based Photo Album using AWS Services 
-S3 BUCKET LINK FOR THE CHATBOT : http://photoalbumass2.s3-website-us-east-1.amazonaws.com/
+http://b2-frontend-bsb9397.s3-website-us-east-1.amazonaws.com/Frontend/index.html
 
 # SERVICES USED
 ## AWS SERVICES
