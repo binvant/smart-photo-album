@@ -62,7 +62,7 @@ def lambda_handler(event, context):
             if(url_res not in result):
                 result.append(url_res)
         print("-----RESULT-----",result)
-    
+
     return {
         'statusCode': 200,
         'body': json.dumps(result),
